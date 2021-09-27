@@ -1,0 +1,21 @@
+{
+	"Movies": [
+		{
+			"Id": "78842b56-031f-4214-a544-a45fe98f96da",
+			"Title": "Pineapple Express",
+			"Genre": [
+				"Comedy",
+				"Fiction"
+			],
+			"Description": "Description",
+			"Director": "David Gordon Green",
+			"Actors": [
+				"James Franco",
+				"Seth Rogan",
+				"Danny McBride",
+				"Craig Robinson"
+			],
+			"Rating": 7.6
+		}
+	]
+}
