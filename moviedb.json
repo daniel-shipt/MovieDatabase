@@ -1,7 +1,24 @@
 {
 	"Movies": [
 		{
-			"Id": "78842b56-031f-4214-a544-a45fe98f96da",
+			"Id": "66ec2904-21cd-43d6-a0e2-fef14acc56a2",
+			"Title": "Hot Rod",
+			"Genre": [
+				"Comedy",
+				"Fiction"
+			],
+			"Description": "Description",
+			"Director": "Akiva Schaeffer",
+			"Actors": [
+				"Andy Samberg",
+				"Jorma Tacome",
+				"Danny McBride",
+				"Bill Hader"
+			],
+			"Rating": 7.6
+		},
+		{
+			"Id": "0886a315-f63b-4ba9-9b2b-0c67dabe7c1d",
 			"Title": "Pineapple Express",
 			"Genre": [
 				"Comedy",
@@ -16,6 +33,81 @@
 				"Craig Robinson"
 			],
 			"Rating": 7.6
+		},
+		{
+			"Id": "75f9a6fc-6ef2-406e-9e16-1c73deb756d1",
+			"Title": "The Avengers",
+			"Genre": [
+				"Action",
+				"Adventure",
+				"Sci-Fi"
+			],
+			"Description": "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+			"Director": "Joss Whedon",
+			"Actors": [
+				"Robert Downey Jr.",
+				"Chris Evans",
+				"Chris Hemsworth",
+				"Scarlett Johansson"
+			],
+			"Rating": 8
+		},
+		{
+			"Id": "c1c4be76-78e8-47fa-ab2c-38b7fba4613a",
+			"Title": "Avengers: Age of Ultron",
+			"Genre": [
+				"Action",
+				"Adventure",
+				"Sci-Fi"
+			],
+			"Description": "When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the villainous Ultron from enacting his terrible plan.",
+			"Director": "Joss Whedon",
+			"Actors": [
+				"Robert Downey Jr.",
+				"Chris Evans",
+				"Chris Hemsworth",
+				"Scarlett Johansson",
+				"Mark Ruffalo"
+			],
+			"Rating": 7.3
+		},
+		{
+			"Id": "4f293719-7a63-4fe2-8426-24743806e551",
+			"Title": "Avengers: Infinity War",
+			"Genre": [
+				"Action",
+				"Adventure",
+				"Sci-Fi"
+			],
+			"Description": "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
+			"Director": "Anthony and Joe Russo",
+			"Actors": [
+				"Robert Downey Jr.",
+				"Chris Evans",
+				"Chris Hemsworth",
+				"Scarlett Johansson",
+				"Mark Ruffalo"
+			],
+			"Rating": 8.4
+		},
+		{
+			"Id": "1c16cf01-cc6c-4782-8e32-658957e37045",
+			"Title": "Avengers: Endgame",
+			"Genre": [
+				"Action",
+				"Adventure",
+				"Sci-Fi"
+			],
+			"Description": "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
+			"Director": "Anthony and Joe Russo",
+			"Actors": [
+				"Robert Downey Jr.",
+				"Chris Evans",
+				"Chris Hemsworth",
+				"Scarlett Johansson",
+				"Mark Ruffalo"
+			],
+			"Rating": 8.4
 		}
 	]
 }
