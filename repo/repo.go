@@ -8,31 +8,77 @@ import (
 )
 
 type DataBase struct {
-	Movies []entities.Movie `json:"Movies"`
+	Movies []entities.Movie
 }
 
-func AddMovie(m entities.Movie) (DataBase, error) {
-	file, err := ioutil.ReadFile("moviedb.json")
-	if err != nil {
-		fmt.Println(err)
-	}
-	m.GetId()
-	dbSlice := DataBase{}
-	err = json.Unmarshal(file, &dbSlice)
-	if err != nil {
-		fmt.Println(err)
-	}
-	dbSlice.Movies = append(dbSlice.Movies, m)
+type Repo struct {
+	Filename string
+}
 
-	movieBytes, err := json.MarshalIndent(dbSlice, "", "	")
-	if err != nil {
-		fmt.Println(err)
+func NewRepo(f string) Repo {
+	return Repo{
+		Filename: f,
 	}
+}
 
-	err = ioutil.WriteFile("moviedb.json", movieBytes, 0644)
+func (r Repo) AddMovie(m entities.Movie) error {
+	movieStruct := DataBase{}
+
+	file, err := ioutil.ReadFile(r.Filename)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
-	return dbSlice, nil
+	err = json.Unmarshal(file, &movieStruct)
+	if err != nil {
+		return err
+	}
+
+	movieStruct.Movies = append(movieStruct.Movies, m)
+
+	movieBytes, err := json.MarshalIndent(movieStruct, "", "	")
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(r.Filename, movieBytes, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r Repo) ViewAll() (DataBase, error) {
+	file, err := ioutil.ReadFile(r.Filename)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	db := DataBase{}
+	err = json.Unmarshal(file, &db)
+	if err != nil {
+		return db, err
+	}
+
+	return db, nil
+}
+
+func (r Repo) FindById(id string) (entities.Movie, error) {
+	file, err := ioutil.ReadFile(r.Filename)
+	if err != nil {
+		fmt.Println(err)
+	}
+	movies := DataBase{}
+	err = json.Unmarshal(file, &movies)
+
+	match := entities.Movie{}
+
+	for _, val := range movies.Movies {
+		if val.Id == id {
+			match = val
+			return match, nil
+		}
+	}
+	return match, nil
 }
