@@ -74,6 +74,40 @@
 				"Mark Ruffalo"
 			],
 			"Rating": 8.4
+		},
+		{
+			"Id": "82c8b941-f9b1-4792-9179-b3f3e04451e3",
+			"Title": "Hot Rod",
+			"Genre": [
+				"Comedy",
+				"Fiction"
+			],
+			"Description": "Description",
+			"Director": "Akiva Schaeffer",
+			"Actors": [
+				"Andy Samberg",
+				"Jorma Tacome",
+				"Danny McBride",
+				"Bill Hader"
+			],
+			"Rating": 7.6
+		},
+		{
+			"Id": "f3cf3cb7-6875-46b5-8ea1-f259af0f9184",
+			"Title": "Pineapple Express",
+			"Genre": [
+				"Comedy",
+				"Fiction"
+			],
+			"Description": "Description",
+			"Director": "David Gordon Green",
+			"Actors": [
+				"James Franco",
+				"Seth Rogan",
+				"Danny McBride",
+				"Craig Robinson"
+			],
+			"Rating": 7.6
 		}
 	]
 }

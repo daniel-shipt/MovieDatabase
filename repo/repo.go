@@ -3,12 +3,14 @@ package repo
 import (
 	"MovieDatabase/entities"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 )
 
 type DataBase struct {
 	Movies []entities.Movie
+	//MovieMap map[string]entities.Movie
 }
 
 type Repo struct {
@@ -22,21 +24,27 @@ func NewRepo(f string) Repo {
 }
 
 func (r Repo) AddMovie(m entities.Movie) error {
-	movieStruct := DataBase{}
+	movieSlice := DataBase{}
 
 	file, err := ioutil.ReadFile(r.Filename)
 	if err != nil {
 		return err
 	}
 
-	err = json.Unmarshal(file, &movieStruct)
+	err = json.Unmarshal(file, &movieSlice)
 	if err != nil {
 		return err
 	}
 
-	movieStruct.Movies = append(movieStruct.Movies, m)
+	for _, val := range movieSlice.Movies {
+		if val.Title == m.Title {
+			return errors.New("movie already exists")
+		}
+	}
 
-	movieBytes, err := json.MarshalIndent(movieStruct, "", "	")
+	movieSlice.Movies = append(movieSlice.Movies, m)
+
+	movieBytes, err := json.MarshalIndent(movieSlice, "", "	")
 	if err != nil {
 		return err
 	}
@@ -69,6 +77,7 @@ func (r Repo) FindById(id string) (entities.Movie, error) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	movies := DataBase{}
 	err = json.Unmarshal(file, &movies)
 
@@ -80,5 +89,5 @@ func (r Repo) FindById(id string) (entities.Movie, error) {
 			return match, nil
 		}
 	}
-	return match, nil
+	return entities.Movie{}, errors.New("movie not found")
 }

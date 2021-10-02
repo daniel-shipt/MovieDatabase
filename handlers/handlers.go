@@ -28,6 +28,14 @@ func (mov MovieHandler) PostNewMovie(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = mov.Serv.AddMovie(mv)
+	if err != nil {
+		switch err.Error() {
+		case "movie already exists":
+			{
+				http.Error(w, err.Error(), http.StatusBadRequest)
+			}
+		}
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
@@ -55,7 +63,10 @@ func (mov MovieHandler) GetById(w http.ResponseWriter, r *http.Request) {
 
 	movById, err := mov.Serv.FindById(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		switch err.Error() {
+		case "movie not found":
+			http.Error(w, err.Error(), http.StatusNotFound)
+		}
 	}
 
 	movie, err := json.MarshalIndent(movById, "", "	")
