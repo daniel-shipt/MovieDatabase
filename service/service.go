@@ -3,6 +3,7 @@ package service
 import (
 	"MovieDatabase/entities"
 	"MovieDatabase/repo"
+	"errors"
 	"github.com/google/uuid"
 )
 
@@ -19,11 +20,14 @@ func DoService(r repo.Repo) Service {
 func (s Service) AddMovie(m entities.Movie) error {
 	m.Id = uuid.New().String()
 
-	err := s.Repo.AddMovie(m)
-	if err != nil {
-		return err
+	if m.Rating >= 0 && m.Rating <= 10 {
+		err := s.Repo.AddMovie(m)
+		if err != nil {
+			return err
+		}
+		return nil
 	}
-	return nil
+	return errors.New("invalid rating")
 }
 
 func (s Service) ViewAll() (repo.DataBase, error) {
@@ -40,4 +44,13 @@ func (s Service) FindById(id string) (entities.Movie, error) {
 		return movie, err
 	}
 	return movie, nil
+}
+
+func (s Service) DeleteMovie(id string) error {
+	err := s.Repo.DeleteMovie(id)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

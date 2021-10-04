@@ -91,3 +91,39 @@ func (r Repo) FindById(id string) (entities.Movie, error) {
 	}
 	return entities.Movie{}, errors.New("movie not found")
 }
+
+func (r Repo) DeleteMovie(id string) error {
+	file, err := ioutil.ReadFile(r.Filename)
+	if err != nil {
+		return err
+	}
+
+	movies := DataBase{}
+	newDb := DataBase{}
+	err = json.Unmarshal(file, &movies)
+
+	dbSize := len(movies.Movies)
+	for _, val := range movies.Movies {
+		if val.Id == id {
+			continue
+		} else {
+			newDb.Movies = append(newDb.Movies, val)
+		}
+	}
+
+	if len(newDb.Movies) == dbSize {
+		return errors.New("failed to delete movie - does not exist")
+	}
+
+	movieBytes, err := json.MarshalIndent(newDb, "", "	")
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile("moviedb.json", movieBytes, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

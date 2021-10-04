@@ -31,9 +31,9 @@ func (mov MovieHandler) PostNewMovie(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		switch err.Error() {
 		case "movie already exists":
-			{
-				http.Error(w, err.Error(), http.StatusBadRequest)
-			}
+			http.Error(w, err.Error(), http.StatusBadRequest)
+		case "invalid rating":
+			http.Error(w, err.Error(), http.StatusBadRequest)
 		}
 	}
 
@@ -77,4 +77,20 @@ func (mov MovieHandler) GetById(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusAccepted)
 	_, _ = w.Write(movie)
+}
+
+func (mov MovieHandler) DeleteMov(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["Id"]
+
+	err := mov.Serv.DeleteMovie(id)
+	if err != nil {
+		switch err.Error() {
+		case "failed to delete movie - does not exist":
+			http.Error(w, err.Error(), http.StatusNotFound)
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
