@@ -75,7 +75,7 @@ func (mov MovieHandler) GetById(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusAccepted)
+	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(movie)
 }
 
@@ -89,6 +89,25 @@ func (mov MovieHandler) DeleteMov(w http.ResponseWriter, r *http.Request) {
 		case "failed to delete movie - does not exist":
 			http.Error(w, err.Error(), http.StatusNotFound)
 		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+}
+
+func (mov MovieHandler) UpdateMov(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+	id := vars["Id"]
+	mv := entities.Movie{}
+
+	err := json.NewDecoder(r.Body).Decode(&mv)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = mov.Serv.UpdateMovie(id, mv)
+	if err != nil{
+		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 
 	w.Header().Set("Content-Type", "application/json")

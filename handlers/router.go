@@ -11,6 +11,7 @@ func ConfigRouter(handler MovieHandler) *mux.Router {
 	r.HandleFunc("/movie", handler.GetMovies).Methods("GET")
 	r.HandleFunc("/movie/{Id}", handler.GetById).Methods("GET")
 	r.HandleFunc("/movie/{Id}", handler.DeleteMov).Methods("DELETE")
+	r.HandleFunc("/movie/{Id}", handler.UpdateMov).Methods("PUT")
 
 	return r
 }

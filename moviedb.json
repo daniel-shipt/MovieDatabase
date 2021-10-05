@@ -74,6 +74,23 @@
 				"Mark Ruffalo"
 			],
 			"Rating": 8.4
+		},
+		{
+			"Id": "1a48cdfd-1f67-4ca2-bd73-aa3f8b61da0a",
+			"Title": "Pineapple Express",
+			"Genre": [
+				"Comedy",
+				"Fiction"
+			],
+			"Description": "Description",
+			"Director": "David Gordon Green",
+			"Actors": [
+				"James Franco",
+				"Seth Rogan",
+				"Danny McBride",
+				"Craig Robinson"
+			],
+			"Rating": 7.6
 		}
 	]
 }

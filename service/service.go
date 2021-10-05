@@ -54,3 +54,11 @@ func (s Service) DeleteMovie(id string) error {
 
 	return nil
 }
+
+func (s Service) UpdateMovie(id string, m entities.Movie) error {
+	err := s.Repo.UpdateMovie(id, m)
+	if err != nil{
+		return err
+	}
+	return nil
+}

@@ -120,10 +120,41 @@ func (r Repo) DeleteMovie(id string) error {
 		return err
 	}
 
-	err = ioutil.WriteFile("moviedb.json", movieBytes, 0644)
+	err = ioutil.WriteFile(r.Filename, movieBytes, 0644)
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (r Repo) UpdateMovie(id string, mv entities.Movie) error {
+	file, err := ioutil.ReadFile(r.Filename)
+	if err != nil {
+		return err
+	}
+
+	movies := DataBase{}
+	err = json.Unmarshal(file, &movies)
+	if err != nil {
+		return err
+	}
+
+	for i, val := range movies.Movies {
+		if val.Id == id {
+			movies.Movies[i].UpdateMovie(id, mv)
+		}
+	}
+
+	movieBytes, err := json.MarshalIndent(movies, "", "	")
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(r.Filename, movieBytes, 0644)
+	if err != nil {
+		return err
+	}
+
+	return err
 }
