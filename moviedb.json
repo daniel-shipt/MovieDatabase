@@ -91,6 +91,23 @@
 				"Craig Robinson"
 			],
 			"Rating": 7.6
+		},
+		{
+			"Id": "47cced45-1412-40fc-8b0b-12af15f4003b",
+			"Title": "Hot Rod",
+			"Genre": [
+				"Comedy",
+				"Fiction"
+			],
+			"Description": "Description",
+			"Director": "Akiva Schaffer",
+			"Actors": [
+				"Andy Samberg",
+				"Bill Hader",
+				"Danny McBride",
+				"Jorma Tacome"
+			],
+			"Rating": 7.6
 		}
 	]
 }

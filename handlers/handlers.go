@@ -9,6 +9,14 @@ import (
 	"net/http"
 )
 
+//type HandleMovies interface {
+//	PostNewMovie(w http.ResponseWriter, r *http.Request)
+//	GetMovies(w http.ResponseWriter, r *http.Request)
+//	GetById(w http.ResponseWriter, r *http.Request)
+//	DeleteMov(w http.ResponseWriter, r *http.Request)
+//	UpdateMov(w http.ResponseWriter, r *http.Request)
+//}
+
 type MovieHandler struct {
 	Serv service.Service
 }
@@ -95,7 +103,7 @@ func (mov MovieHandler) DeleteMov(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func (mov MovieHandler) UpdateMov(w http.ResponseWriter, r *http.Request){
+func (mov MovieHandler) UpdateMov(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["Id"]
 	mv := entities.Movie{}
@@ -106,7 +114,7 @@ func (mov MovieHandler) UpdateMov(w http.ResponseWriter, r *http.Request){
 	}
 
 	err = mov.Serv.UpdateMovie(id, mv)
-	if err != nil{
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 

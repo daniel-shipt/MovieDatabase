@@ -8,9 +8,16 @@ import (
 	"io/ioutil"
 )
 
+//type MovieRepo interface{
+//	AddMovie(m entities.Movie) error
+//	ViewAll() (DataBase, error)
+//	FindById(id string) (entities.Movie, error)
+//	DeleteMovie(id string) error
+//	UpdateMovie(id string, mv entities.Movie) error
+//}
+
 type DataBase struct {
 	Movies []entities.Movie
-	//MovieMap map[string]entities.Movie
 }
 
 type Repo struct {
@@ -142,7 +149,7 @@ func (r Repo) UpdateMovie(id string, mv entities.Movie) error {
 
 	for i, val := range movies.Movies {
 		if val.Id == id {
-			movies.Movies[i].UpdateMovie(id, mv)
+			movies.Movies[i] = mv
 		}
 	}
 
@@ -156,5 +163,5 @@ func (r Repo) UpdateMovie(id string, mv entities.Movie) error {
 		return err
 	}
 
-	return err
+	return nil
 }

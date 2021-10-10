@@ -7,6 +7,14 @@ import (
 	"github.com/google/uuid"
 )
 
+//type MovieService interface {
+//	AddMovie(m entities.Movie) error
+//	ViewAll() (repo.DataBase, error)
+//	FindById(id string) (entities.Movie, error)
+//	DeleteMovie(id string) error
+//	UpdateMovie(id string, m entities.Movie) error
+//}
+
 type Service struct {
 	Repo repo.Repo
 }
@@ -57,7 +65,7 @@ func (s Service) DeleteMovie(id string) error {
 
 func (s Service) UpdateMovie(id string, m entities.Movie) error {
 	err := s.Repo.UpdateMovie(id, m)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 	return nil
