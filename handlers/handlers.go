@@ -2,26 +2,26 @@ package handlers
 
 import (
 	"MovieDatabase/entities"
-	"MovieDatabase/service"
+	"MovieDatabase/repo"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
 
-//type HandleMovies interface {
-//	PostNewMovie(w http.ResponseWriter, r *http.Request)
-//	GetMovies(w http.ResponseWriter, r *http.Request)
-//	GetById(w http.ResponseWriter, r *http.Request)
-//	DeleteMov(w http.ResponseWriter, r *http.Request)
-//	UpdateMov(w http.ResponseWriter, r *http.Request)
-//}
-
-type MovieHandler struct {
-	Serv service.Service
+type Service interface {
+	AddMovie(m entities.Movie) error
+	ViewAll() (repo.DataBase, error)
+	FindById(id string) (*entities.Movie, error)
+	DeleteMovie(id string) error
+	UpdateMovie(id string, m entities.Movie) error
 }
 
-func NewMovieHandler(s service.Service) MovieHandler {
+type MovieHandler struct {
+	Serv Service
+}
+
+func NewMovieHandler(s Service) MovieHandler {
 	return MovieHandler{
 		Serv: s,
 	}
@@ -40,8 +40,10 @@ func (mov MovieHandler) PostNewMovie(w http.ResponseWriter, r *http.Request) {
 		switch err.Error() {
 		case "movie already exists":
 			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
 		case "invalid rating":
 			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
 		}
 	}
 
@@ -74,6 +76,7 @@ func (mov MovieHandler) GetById(w http.ResponseWriter, r *http.Request) {
 		switch err.Error() {
 		case "movie not found":
 			http.Error(w, err.Error(), http.StatusNotFound)
+			return
 		}
 	}
 
@@ -96,6 +99,7 @@ func (mov MovieHandler) DeleteMov(w http.ResponseWriter, r *http.Request) {
 		switch err.Error() {
 		case "failed to delete movie - does not exist":
 			http.Error(w, err.Error(), http.StatusNotFound)
+			return
 		}
 	}
 

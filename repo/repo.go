@@ -8,14 +8,6 @@ import (
 	"io/ioutil"
 )
 
-//type MovieRepo interface{
-//	AddMovie(m entities.Movie) error
-//	ViewAll() (DataBase, error)
-//	FindById(id string) (entities.Movie, error)
-//	DeleteMovie(id string) error
-//	UpdateMovie(id string, mv entities.Movie) error
-//}
-
 type DataBase struct {
 	Movies []entities.Movie
 }
@@ -79,7 +71,7 @@ func (r Repo) ViewAll() (DataBase, error) {
 	return db, nil
 }
 
-func (r Repo) FindById(id string) (entities.Movie, error) {
+func (r Repo) FindById(id string) (*entities.Movie, error) {
 	file, err := ioutil.ReadFile(r.Filename)
 	if err != nil {
 		fmt.Println(err)
@@ -93,10 +85,10 @@ func (r Repo) FindById(id string) (entities.Movie, error) {
 	for _, val := range movies.Movies {
 		if val.Id == id {
 			match = val
-			return match, nil
+			return &match, nil
 		}
 	}
-	return entities.Movie{}, errors.New("movie not found")
+	return nil, errors.New("movie not found")
 }
 
 func (r Repo) DeleteMovie(id string) error {

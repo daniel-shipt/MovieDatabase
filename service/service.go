@@ -7,19 +7,19 @@ import (
 	"github.com/google/uuid"
 )
 
-//type MovieService interface {
-//	AddMovie(m entities.Movie) error
-//	ViewAll() (repo.DataBase, error)
-//	FindById(id string) (entities.Movie, error)
-//	DeleteMovie(id string) error
-//	UpdateMovie(id string, m entities.Movie) error
-//}
-
-type Service struct {
-	Repo repo.Repo
+type Repo interface{
+	AddMovie(m entities.Movie) error
+	ViewAll() (repo.DataBase, error)
+	FindById(id string) (*entities.Movie, error)
+	DeleteMovie(id string) error
+	UpdateMovie(id string, mv entities.Movie) error
 }
 
-func DoService(r repo.Repo) Service {
+type Service struct {
+	Repo Repo
+}
+
+func CreateService(r Repo) Service {
 	return Service{
 		Repo: r,
 	}
@@ -46,10 +46,10 @@ func (s Service) ViewAll() (repo.DataBase, error) {
 	return db, nil
 }
 
-func (s Service) FindById(id string) (entities.Movie, error) {
+func (s Service) FindById(id string) (*entities.Movie, error) {
 	movie, err := s.Repo.FindById(id)
 	if err != nil {
-		return movie, err
+		return nil, err
 	}
 	return movie, nil
 }

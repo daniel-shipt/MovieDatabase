@@ -18,7 +18,7 @@ func main() {
 	}
 
 	repository := repo.NewRepo(file)
-	serv := service.DoService(repository)
+	serv := service.CreateService(repository)
 	handler := handlers.NewMovieHandler(serv)
 	router := handlers.ConfigRouter(handler)
 
